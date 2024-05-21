@@ -1,0 +1,82 @@
+1.
+
+PREFIX : <http://www.example.org/disease-ontology#>
+SELECT (COUNT(?doenca) AS ?numDoencas) WHERE {
+  ?doenca a :Disease .
+}
+
+2.
+
+PREFIX : <http://www.example.org/disease-ontology#>
+SELECT ?doenca WHERE {
+  ?doenca a :Disease ;
+          :hasSymptom :yellowish_skin .
+}
+
+3. 
+
+PREFIX : <http://www.example.org/disease-ontology#>
+SELECT ?doenca WHERE {
+  ?doenca a :Disease ;
+          :hasTreatment :exercise .
+}
+
+4. 
+
+PREFIX : <http://www.example.org/disease-ontology#>
+SELECT ?nome
+WHERE {
+  ?doente a :Patient ;
+     :name ?nome
+    
+}
+ORDER BY ?nome
+
+
+----------------------------
+
+PREFIX : <http://www.example.org/med_doentes#>
+
+CONSTRUCT {
+  ?patient :hasDisease ?disease .
+}
+WHERE {
+  ?patient a :Patient ;
+           :exhibitsSymptom ?symptom .
+  ?disease a :Disease ;
+           :hasSymptom ?symptom .
+}
+
+------------------------------
+
+PREFIX : <http://www.example.org/disease-ontology#>
+
+SELECT ?disease (COUNT(?patient) AS ?numPatients) WHERE {
+  ?patient a :Patient ;
+           :hasDisease ?disease .
+}
+GROUP BY ?disease
+ORDER BY DESC(?numPatients)
+
+---------------------------------
+
+
+PREFIX : <http://www.example.org/med_doentes#>
+
+SELECT ?symptom (COUNT(?disease) AS ?numDiseases) WHERE {
+  ?disease a :Disease ;
+           :hasSymptom ?symptom .
+}
+GROUP BY ?symptom ORDER BY DESC(?numDiseases)
+
+
+------------------------------------
+
+
+PREFIX : <http://www.example.org/med_doentes#>
+
+SELECT ?treatment (COUNT(?disease) AS ?numDiseases) WHERE {
+  ?disease a :Disease ;
+           :hasTreatment ?treatment .
+}
+GROUP BY ?treatment ORDER BY DESC(?numDiseases)

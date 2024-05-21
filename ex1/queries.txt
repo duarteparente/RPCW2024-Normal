@@ -1,0 +1,47 @@
+1.
+
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+SELECT (COUNT(DISTINCT ?class) AS ?numClasses) WHERE {
+  ?class a owl:Class.
+}
+
+
+2.
+
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+SELECT (COUNT(DISTINCT ?property) AS ?numObjectProperties) WHERE {
+  ?property a owl:ObjectProperty.
+}
+
+3.
+
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+SELECT (COUNT(DISTINCT ?individual) AS ?numIndividuals) WHERE {
+  ?individual a owl:NamedIndividual.
+}
+
+4.
+
+PREFIX : <http://rpcw.di.uminho.pt/2024/historia/>
+SELECT ?nome WHERE {
+  ?tomate a :Produto ;
+    :nomeProduto "Tomate" .
+  ?fazenda a :Fazenda ;
+   :cultiva ?tomate .
+  ?pessoa a :Pessoa ;
+    :nomePessoa ?nome ;
+    :temFazenda ?fazenda .
+}
+
+
+5.
+
+PREFIX : <http://rpcw.di.uminho.pt/2024/historia/>
+SELECT ?nome WHERE {
+  ?trabalhador a :TrabalhadorTemporario .
+  ?fazenda a :Fazenda ;
+   :contrata ?trabalhador .
+  ?pessoa a :Pessoa ;
+    :nomePessoa ?nome ;
+    :temFazenda ?fazenda .
+}
